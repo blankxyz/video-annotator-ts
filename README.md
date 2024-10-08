@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# 视频标注工具 (Video Annotation Tool)
 
-First, run the development server:
+该项目是一个基于 `React` 和 `Konva` 的视频标注工具，允许用户播放视频并在视频的某一帧上进行多边形标注，并将标注的坐标导出为 JSON 文件。
+
+## 功能介绍
+
+1. **视频播放**：支持播放本地和远程视频，视频播放器的窗口固定为 800x600。
+2. **第一帧捕获**：在视频加载完成后，自动捕获视频的第一帧，并在页面上显示该帧。
+3. **多边形标注**：用户可以在显示的第一帧上进行多边形标注。标注通过鼠标点击来确定顶点，当两个点非常接近时，自动闭合多边形。
+4. **标注导出**：用户完成标注后，可以将标注的多边形坐标导出为 JSON 文件，导出的坐标是按视频的原始尺寸比例缩放的。
+
+## 使用说明
+
+### 1. 安装依赖
+
+确保您已经安装了 `Node.js` 和 `npm`，然后在项目根目录下运行以下命令来安装依赖：
+
+```bash
+npm install
+```
+
+### 2. 运行项目
+
+在项目根目录下运行以下命令来启动项目：
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+打开浏览器并访问 `http://localhost:3000`。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. 使用步骤
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **选择视频**：点击页面上的“选择文件”按钮，选择一个本地视频，或者在输入框中输入远程视频的 URL。
+2. **开始标注**：视频加载完成后，系统会捕获并显示视频的第一帧。点击“开始标注”按钮，您可以在显示的帧上进行多边形标注。
+3. **标注点添加**：通过在图像上点击来添加多边形的顶点。当您点击的点非常接近起始点时，系统会自动闭合多边形。
+4. **导出坐标**：完成标注后，点击“导出为 JSON”按钮，下载包含标注坐标的 JSON 文件。导出的坐标会根据原视频的尺寸进行比例缩放。
 
-## Learn More
+### 4. 项目结构
 
-To learn more about Next.js, take a look at the following resources:
+```
+/src
+│
+├── /components
+│   └── VideoAnnotator.tsx   # 视频标注主组件
+├── /public                  # 静态文件
+└── /styles                  # 样式文件
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 5. 示例
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+以下是生成的 JSON 文件示例，它包含标注的多边形坐标：
 
-## Deploy on Vercel
+```json
+[
+  [
+    120.5, 180.75,
+    250.0, 320.0,
+    400.25, 500.0,
+    120.5, 180.75  // 闭合的起始点
+  ]
+]
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 6. 依赖包
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **React**: 前端框架，用于构建用户界面。
+- **ReactPlayer**: 用于加载和播放本地或远程视频。
+- **Konva & React-Konva**: 用于在 `canvas` 上绘制多边形、图像和其他图形元素。
+- **TypeScript**: 使用 TypeScript 进行静态类型检查，增强代码的可靠性。
+
+## 未来功能
+
+- 支持更多类型的标注，如矩形、圆形等。
+- 支持在视频的任意帧进行标注，而不仅仅是第一帧。
+- 增加对标注历史的保存与加载功能。
+
+## 贡献
+
+欢迎贡献！如果您有任何建议或发现问题，欢迎提交 Issue 或 Pull Request。
+
+## 许可
+
+本项目基于 [MIT 许可证](LICENSE) 开源。
